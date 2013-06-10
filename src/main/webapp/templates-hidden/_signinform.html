@@ -1,0 +1,29 @@
+<div class="container-fluid GsLogin span9" align=center xmlns="http://www.w3.org/1999/html">
+    <META HTTP-EQUIV="content-type" CONTENT="text/html;charset = UTF-8">
+       <div class="row-fluid">
+        <div class="span7 offset5 dialog">
+
+                <div class="block-body GsLogin">
+                    <form class="form-horizontal" action="/user_mgt/login" method="POST">
+                        <fieldset>
+                            <div data-lift-id="title">Ingresar</div>
+                        <div>
+                            <label class="control-label" for="email"><span class="lift:Loc?locid=Email">E-mail</span></label>
+                            <input type="text" id="email" name="username" placeholder="Email" class="span12" required><br/>
+                            <label class="control-label" for="password"><span class="lift:Loc?locid=Password">Password</span></label>
+                            <input type="password" id="password" name="password" placeholder="Password" class="span12">
+                        </div>
+                        <div>
+                            <a href="/user_mgt/lost_password"><span class="lift:Loc?locid=recover.password">Recover Password</span></a>
+                        </div>
+                        <div style="text-align: center;margin-top: 10px">
+                            <div class="btn-group">
+                                <button type="submit" name="save" class="btn"><span class="lift:Loc?locid=sign.in">Sign in</span></button>
+                                <button type="reset" name="reset" class="btn"><span class="lift:Loc?locid=reset">Reset</span></button>
+                            </div>
+                        </div>
+                            </fieldset>
+                    </form>
+                </div>
+        </div>
+    </div>

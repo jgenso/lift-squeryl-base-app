@@ -1,6 +1,7 @@
 package bootstrap.liftweb
 
 import net.liftweb._
+import squerylrecord.SquerylRecord
 import util._
 import Helpers._
 
@@ -10,6 +11,14 @@ import sitemap._
 import Loc._
 import net.liftmodules.JQueryModule
 import net.liftweb.http.js.jquery._
+import org.squeryl.adapters.H2Adapter
+import java.sql.DriverManager
+import org.squeryl.Session
+import net.liftweb.squerylrecord.RecordTypeMode._
+import net.liftweb.http.S
+import net.liftweb.util.LoanWrapper
+import code.lib.model.DbHelper
+import code.model.User
 
 
 /**
@@ -20,6 +29,36 @@ class Boot {
   def boot {
     // where to search snippet
     LiftRules.addToPackages("code")
+
+    //Database connection
+    Class.forName("org.h2.Driver")
+
+    def connection = DriverManager.getConnection(
+      "jdbc:h2:mem:dbname;DB_CLOSE_DELAY=-1",
+      "sa", "")
+
+    SquerylRecord.initWithSquerylSession(
+      Session.create(connection, new H2Adapter) )
+
+    S.addAround(new LoanWrapper {
+      override def apply[T](f: => T): T = {
+        val result = inTransaction {
+          try {
+            Right(f)
+          } catch {
+            case e: LiftFlowOfControlException => Left(e)
+          }
+        }
+
+        result match {
+          case Right(r) => r
+          case Left(exception) => throw exception
+        }
+      }
+    })
+
+    // Uncomment the following line to create the database schema
+    DbHelper.createSchema()
 
     // Build SiteMap
     val entries = List(
@@ -32,7 +71,7 @@ class Boot {
 
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
-    LiftRules.setSiteMap(SiteMap(entries:_*))
+    LiftRules.setSiteMapFunc(() => User.sitemapMutator(SiteMap(entries: _*)))
 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
