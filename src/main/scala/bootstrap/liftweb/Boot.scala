@@ -31,14 +31,7 @@ class Boot {
     LiftRules.addToPackages("code")
 
     //Database connection
-    Class.forName("org.h2.Driver")
-
-    def connection = DriverManager.getConnection(
-      "jdbc:h2:mem:dbname;DB_CLOSE_DELAY=-1",
-      "sa", "")
-
-    SquerylRecord.initWithSquerylSession(
-      Session.create(connection, new H2Adapter) )
+    DbHelper.initDB()
 
     S.addAround(new LoanWrapper {
       override def apply[T](f: => T): T = {
