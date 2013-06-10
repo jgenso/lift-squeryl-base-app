@@ -1,13 +1,101 @@
+# use glob syntax.
+syntax: glob
+*.ser
 *.class
+*~
+*.bak
+*.off
+*.old
+.DS_Store
+j2.props
+project/boot/*
+project/plugins/lib_managed/*
+project/plugins/project/*
+project/plugins/src_managed/*
+project/plugins/target/*
+project/build/target/scala_2.7.7/classes/LiftProject.class
+project-old/
+# logs
+derby.log
+
+# eclipse conf file
+.settings
+.classpath
+.project
+.manager
+
+# building
+target
+build
+null
+tmp*
+dist
+test-output
+
+# sbt
+target
+lib_managed
+src_managed
+*/project/boot
+*/*/project/boot
+
+# db
+lift_proto*
+
+# other scm
+.svn
+.CVS
+.hg*
+
+# switch to regexp syntax.
+#  syntax: regexp
+#  ^\.pc/
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea
+
+# Pax Runner (for easy OSGi launching)
+runner
+ompiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
 *.log
+*.sql
+*.sqlite
 
-# sbt specific
-dist/*
-target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
 
-# Scala-IDE specific
-.scala_dependencies
+#Less CSS
+src/main/webapp/css/less/
+
+atlassian-ide-plugin.xml
+
