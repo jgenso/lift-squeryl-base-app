@@ -1,0 +1,2 @@
+lift-squeryl-base-app
+=====================
